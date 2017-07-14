@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="predix-microservice-cf-jsr-1.1.21">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/target/predix-microservice-cf-jsr-1.1.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

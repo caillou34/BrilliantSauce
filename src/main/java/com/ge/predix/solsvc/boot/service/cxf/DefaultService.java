@@ -2,6 +2,7 @@ package com.ge.predix.solsvc.boot.service.cxf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.util.Date;
 
 import javax.ws.rs.GET;
@@ -13,6 +14,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
+import com.ge.predix.solsvc.boot.model.DBManager;
+import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
+import jdk.nashorn.internal.objects.Global;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.Api;
@@ -31,6 +35,8 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "/")
 public class DefaultService {
 
+    public static final DBManager db= new DBManager();
+    private Connection conn=null;
 	/**
 	 * 
 	 */
@@ -50,6 +56,41 @@ public class DefaultService {
 	public Response greetings() {
 		return handleResult("{\"status\":\"up\", \"date\": \" " + new Date() + "\"}", MediaType.TEXT_PLAIN_TYPE);
 	}
+
+	/**
+	 * -
+	 *
+	 * @return string
+	 */
+    @SuppressWarnings("nls")
+    @GET
+    @Path("/ting")
+    @ApiOperation(value = "/ting")
+    public Response ting() {
+        return handleResult("Checking API Call" + new Date(), MediaType.TEXT_PLAIN_TYPE);
+    }
+
+
+	/**
+	 * -
+	 *
+	 * @return string
+	 */
+	@SuppressWarnings("nls")
+	@GET
+	@Path("/postData")
+	@ApiOperation(value = "/postData")
+	public Response postData() {
+		conn= db.getConn();
+		if(conn==null){
+			//The ID is good enough
+			return handleResult(DBManager.getTurbineData(1,"voltage","sensors"), MediaType.TEXT_PLAIN_TYPE);
+		}else {
+			return handleResult(db.getConn().toString(), MediaType.TEXT_PLAIN_TYPE);
+		}
+	}
+
+
 
 	/**
 	 * Serve up static HTML files

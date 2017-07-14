@@ -58,5 +58,6 @@ public class HelloControllerTest {
 		assertThat(response.getBody(), startsWith("Greetings from Self Registering Cloud Service"));
 
 		//Now add your dependencies, your services, and test those URLs
+
 	}
 }

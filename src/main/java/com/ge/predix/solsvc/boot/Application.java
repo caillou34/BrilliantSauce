@@ -1,12 +1,14 @@
 package com.ge.predix.solsvc.boot;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ge.predix.solsvc.boot.model.DBManager;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +94,6 @@ public class Application
     @SuppressWarnings("javadoc")
     @Value("${java.docs.url:null}")
     String docsUrl ;
-
 
     /**
      * @param args -
@@ -204,7 +205,9 @@ public class Application
             applicationURl = requesturi.toString(); // localhost support for http
         }
         model.addAttribute("api",applicationURl.toString()+"api");//$NON-NLS-1$ //$NON-NLS-2$ 
-        model.addAttribute("health",applicationURl.toString()+"health");//$NON-NLS-1$ //$NON-NLS-2$ 
+        model.addAttribute("health",applicationURl.toString()+"health");
+        model.addAttribute("ting",applicationURl.toString()+"ting");///$NON-NLS-1$ //$NON-NLS-2$
+        model.addAttribute("postData",applicationURl.toString()+"postData");///$NON-NLS-1$ //$NON-NLS-2$
         model.addAttribute("docs",this.docsUrl);//$NON-NLS-1$ 
          
         return "index"; //$NON-NLS-1$
@@ -221,8 +224,21 @@ public class Application
     response.sendRedirect(applicationURl.replace("/api", "/swagger-api/index.html?url=/service/swagger.json")); //$NON-NLS-1$//$NON-NLS-2$
 
     }
-   
-    
+    @RequestMapping("/ting")
+    public @ResponseBody void ting(HttpServletRequest request ,HttpServletResponse response ) throws IOException
+    {   String applicationURl = getApplicationUrl(request);
+        response.sendRedirect(applicationURl.replace("/ting", "/service/ting")); //$NON-NLS-1$//$NON-NLS-2$
+
+    }
+
+
+    @RequestMapping("/postData")
+    public @ResponseBody void postData(HttpServletRequest request ,HttpServletResponse response ) throws IOException
+    {   String applicationURl = getApplicationUrl(request);
+        response.sendRedirect(applicationURl.replace("/postData", "/service/postData")); //$NON-NLS-1$//$NON-NLS-2$
+
+    }
+
     /**
      * @param request -
      * @param response -
