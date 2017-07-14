@@ -9,11 +9,11 @@ public class DBConn {
      */
     private static Connection instance= null;
     private static Connection conn;
-    private static String hostname= "localhost";
-    private static String dbname= "backend";
-    private static String user="postgres";
-    private static String password="f281330800B";
-    private static String port= "5433";
+    private static String hostname= "db-60e3a2c2-1a48-45b5-9cfa-2b6af0287777.c7uxaqxgfov3.us-west-2.rds.amazonaws.com";
+    private static String dbname= "postgres";
+    private static String user="u5n02zy3x4sd3hzd";
+    private static String password="nmq58dcxp4f9tuvodl9ieqigb";
+    private static String port= "5432";
     private static  String url = "jdbc:postgresql://"+hostname+":"+port+"/"+dbname;
     /** in case of error**/
     public static String connError="";

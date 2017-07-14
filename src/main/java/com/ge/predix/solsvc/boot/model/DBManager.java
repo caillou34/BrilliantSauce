@@ -74,39 +74,6 @@ public class DBManager {
 
     }
 
-
-    public  static String getTurbineData( int id, String dataType, String sensorType){
-        int responseCode;
-            try {
-                URL voltageURL = new URL(GET_URL + id + "/" + sensorType + "/" + dataType);
-                HttpURLConnection con = (HttpURLConnection) voltageURL.openConnection();
-                con.setRequestMethod("GET");
-                responseCode = con.getResponseCode();
-
-                if (responseCode == HttpURLConnection.HTTP_OK) { // success
-                    BufferedReader in = new BufferedReader(new InputStreamReader(
-                            con.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-
-                    // print result
-                    return response.toString();
-                } else {
-                    return"you played yourself";
-                }
-
-            } catch (Exception e){
-                return e.toString();
-            }
-
-
-    }
-
     public String insertTurbVolt( int id, Object time, double voltage, String status){
         //call the getTurbine Method
         return null;
