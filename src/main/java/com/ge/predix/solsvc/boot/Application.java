@@ -218,12 +218,7 @@ public class Application
      * @param response -
      * @throws IOException -
      */
-    @RequestMapping("/api")
-    public @ResponseBody void api(HttpServletRequest request ,HttpServletResponse response ) throws IOException
-    {   String applicationURl = getApplicationUrl(request);
-    response.sendRedirect(applicationURl.replace("/api", "/swagger-api/index.html?url=/service/swagger.json")); //$NON-NLS-1$//$NON-NLS-2$
 
-    }
     @RequestMapping("/ting")
     public @ResponseBody void ting(HttpServletRequest request ,HttpServletResponse response ) throws IOException
     {   String applicationURl = getApplicationUrl(request);

@@ -20,6 +20,9 @@ public class DBManager {
 
     private Connection conn;
     private static String GET_URL= "https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/";
+    public final int MANAGER=1;
+    public final int ENGINEER=2;
+
 
     public DBManager(){
         conn= DBConn.getInstance();
@@ -48,26 +51,25 @@ public class DBManager {
     }
 
 
-    public String readUsers(String name){
+    public String checkRole(String email, String password){
 
         try {
             conn.setAutoCommit(false);
-            String first = "";
-            String last = "";
-            String email = "";
-            String juice = "";
+            int role=0;
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE firstname =" + name + ";");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM public.users WHERE email='" + email + "' AND password='" + password+ "';");
             while (rs.next()) {
-                int id = rs.getInt("id");
-                first = rs.getString("firstname");
-                last = rs.getString("lastname");
-                email = rs.getString("email");
-                juice = rs.getString("juicelevel");
+                role = rs.getInt("role");
             }
             rs.close();
             stmt.close();
-            return first + " " + last + " " + " " + email + " " + juice;
+            if(role==MANAGER){
+                return "Manager";
+            }else if(role== ENGINEER){
+                return "Engineer";
+            }else{
+                return role+"";
+            }
         }catch(SQLException e){
             return e.toString();
         }

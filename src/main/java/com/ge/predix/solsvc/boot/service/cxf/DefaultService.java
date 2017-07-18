@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.ge.predix.solsvc.boot.model.APIController;
+import com.ge.predix.solsvc.boot.model.heartObj;
+import com.ge.predix.solsvc.boot.model.tempObj;
+import com.ge.predix.solsvc.boot.model.voltObj;
 import com.ge.predix.solsvc.boot.model.DBManager;
 import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
 import jdk.nashorn.internal.objects.Global;
@@ -84,8 +87,10 @@ public class DefaultService {
 	public Response postData() {
 		conn= db.getConn();
 		if(conn!=null){
-			//The ID is good enough
-			return handleResult(APIController.getTurbineData(1,"temperature","sensors"), MediaType.TEXT_PLAIN_TYPE);
+			tempObj temp=  (tempObj) APIController.getTurbineJSON(1,"temperature","sensors");
+			//return handleResult(APIController.getTurbineData(1,"temperature","sensors"), MediaType.TEXT_PLAIN_TYPE);
+			//return handleResult(temp.toString(), MediaType.TEXT_PLAIN_TYPE);
+			return handleResult(db.checkRole("eric.blackmon@ge.com", "swagSauce"), MediaType.TEXT_PLAIN_TYPE);
 		}else {
 			return handleResult(db.getConn().toString(), MediaType.TEXT_PLAIN_TYPE);
 		}
