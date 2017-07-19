@@ -3,7 +3,6 @@ package com.ge.predix.solsvc.boot.service.cxf;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.util.Date;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,13 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import com.ge.predix.solsvc.boot.model.APIController;
-import com.ge.predix.solsvc.boot.model.heartObj;
-import com.ge.predix.solsvc.boot.model.tempObj;
-import com.ge.predix.solsvc.boot.model.voltObj;
 import com.ge.predix.solsvc.boot.model.DBManager;
-import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
-import jdk.nashorn.internal.objects.Global;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.Api;
@@ -48,31 +41,6 @@ public class DefaultService {
 		super();
 	}
 
-	/**
-	 * -
-	 * 
-	 * @return string
-	 */
-	@SuppressWarnings("nls")
-	@GET
-	@Path("/health")
-	@ApiOperation(value = "/health")
-	public Response greetings() {
-		return handleResult("{\"status\":\"up\", \"date\": \" " + new Date() + "\"}", MediaType.TEXT_PLAIN_TYPE);
-	}
-
-	/**
-	 * -
-	 *
-	 * @return string
-	 */
-    @SuppressWarnings("nls")
-    @GET
-    @Path("/ting")
-    @ApiOperation(value = "/ting")
-    public Response ting() {
-        return handleResult("Checking API Call" + new Date(), MediaType.TEXT_PLAIN_TYPE);
-    }
 
 
 	/**
@@ -87,15 +55,15 @@ public class DefaultService {
 	public Response postData() {
 		conn= db.getConn();
 		if(conn!=null){
-			tempObj temp=  (tempObj) APIController.getTurbineJSON(1,"temperature","sensors");
-			//return handleResult(APIController.getTurbineData(1,"temperature","sensors"), MediaType.TEXT_PLAIN_TYPE);
-			//return handleResult(temp.toString(), MediaType.TEXT_PLAIN_TYPE);
-			return handleResult(db.checkRole("eric.blackmon@ge.com", "swagSauce"), MediaType.TEXT_PLAIN_TYPE);
+			//return handleResult(db.getVoltRange(0,1).get(1).toString(), MediaType.TEXT_PLAIN_TYPE);
+			//return handleResult(db.insertTurbineTempLive(), MediaType.TEXT_PLAIN_TYPE);
+			return handleResult(db.getVoltObjs(1).get(1).toString(), MediaType.TEXT_PLAIN_TYPE);
+			//return handleResult(db.checkRole("eric.blackmon@ge.com","swagSauce"), MediaType.TEXT_PLAIN_TYPE);
+			//return handleResult(APIController.getTurbineData(1, "temperature", "sensors").toString(), MediaType.TEXT_PLAIN_TYPE);
 		}else {
 			return handleResult(db.getConn().toString(), MediaType.TEXT_PLAIN_TYPE);
 		}
 	}
-
 
 
 	/**

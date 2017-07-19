@@ -204,28 +204,12 @@ public class Application
         if("local".equalsIgnoreCase(this.profile)) { //$NON-NLS-1$
             applicationURl = requesturi.toString(); // localhost support for http
         }
-        model.addAttribute("api",applicationURl.toString()+"api");//$NON-NLS-1$ //$NON-NLS-2$ 
-        model.addAttribute("health",applicationURl.toString()+"health");
-        model.addAttribute("ting",applicationURl.toString()+"ting");///$NON-NLS-1$ //$NON-NLS-2$
+
         model.addAttribute("postData",applicationURl.toString()+"postData");///$NON-NLS-1$ //$NON-NLS-2$
-        model.addAttribute("docs",this.docsUrl);//$NON-NLS-1$ 
+        model.addAttribute("login",applicationURl.toString()+"login");///$NON-NLS-1$ //$NON-NLS-2$
          
         return "index"; //$NON-NLS-1$
     }
-    
-    /**
-     * @param request -
-     * @param response -
-     * @throws IOException -
-     */
-
-    @RequestMapping("/ting")
-    public @ResponseBody void ting(HttpServletRequest request ,HttpServletResponse response ) throws IOException
-    {   String applicationURl = getApplicationUrl(request);
-        response.sendRedirect(applicationURl.replace("/ting", "/service/ting")); //$NON-NLS-1$//$NON-NLS-2$
-
-    }
-
 
     @RequestMapping("/postData")
     public @ResponseBody void postData(HttpServletRequest request ,HttpServletResponse response ) throws IOException
@@ -234,22 +218,17 @@ public class Application
 
     }
 
-    /**
-     * @param request -
-     * @param response -
-     * @throws IOException -
-     */
-    @RequestMapping("/health")
-    public @ResponseBody void health(HttpServletRequest request ,HttpServletResponse response ) throws IOException
-    {  
-        
-        String applicationURl = getApplicationUrl(request);
-        response.sendRedirect(applicationURl.replace("/health", "/service/health")); //$NON-NLS-1$ //$NON-NLS-2$
+    @RequestMapping("/login")
+    public @ResponseBody void login (HttpServletRequest request ,HttpServletResponse response ) throws IOException
+    {   String applicationURl = getApplicationUrl(request);
+        response.sendRedirect(applicationURl.replace("/login", "/service/login")); //$NON-NLS-1$//$NON-NLS-2$
 
     }
-    
+
+
+
     /**
-     * 
+     *
      * @param request
      * @return - Application URL
      */

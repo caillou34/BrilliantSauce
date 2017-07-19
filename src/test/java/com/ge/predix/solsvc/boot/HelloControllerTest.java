@@ -48,16 +48,7 @@ public class HelloControllerTest {
 	@SuppressWarnings("nls")
     @Test
 	public void getHello() throws Exception {
-		
-		this.base = new URL("http://localhost:" + this.localServerPort + "/service/health");
-		ResponseEntity<String> response = this.template.getForEntity(this.base.toString(), String.class);
-		assertThat(response.getBody(), startsWith("{\"status"));
 
-		this.base = new URL("http://localhost:" + this.localServerPort + "/service/dynamicservice/dynamic");
-		response = this.template.getForEntity(this.base.toString(), String.class);
-		assertThat(response.getBody(), startsWith("Greetings from Self Registering Cloud Service"));
-
-		//Now add your dependencies, your services, and test those URLs
 
 	}
 }

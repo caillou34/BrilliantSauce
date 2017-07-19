@@ -13,7 +13,7 @@ import java.net.URL;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.*;
-
+import org.json.JSONObject;
 
 
 /**
@@ -23,11 +23,11 @@ import com.google.gson.*;
 
 public class APIController{
     private static String GET_URL= "https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/";
+    private DBManager db= new DBManager();
 
-
-
-    public  static String getTurbineData( int id, String dataType, String sensorType){
+    public  static JSONObject getTurbineData( int id, String dataType, String sensorType){
         int responseCode;
+        JSONObject jsonObj;
         try {
             URL voltageURL = new URL(GET_URL + id + "/" + sensorType + "/" + dataType);
             HttpURLConnection con = (HttpURLConnection) voltageURL.openConnection();
@@ -44,45 +44,15 @@ public class APIController{
                     response.append(inputLine);
                 }
                 in.close();
-
-                // print result
-                return response.toString();
-            } else {
-                return con.getResponseMessage();
+                jsonObj = new JSONObject(response.toString());
+            }else{
+                jsonObj= new JSONObject("There is an error");
             }
+            return jsonObj;
 
         } catch (Exception e){
-            return e.toString();
+            return null;
         }
-    }
-
-    public static Object getTurbineJSON( int id, String dataType, String sensorType) {
-        int responseCode;
-        try {
-            URL voltageURL = new URL(GET_URL + id + "/" + sensorType + "/" + dataType);
-            HttpURLConnection con = (HttpURLConnection) voltageURL.openConnection();
-            con.setRequestMethod("GET");
-            responseCode = con.getResponseCode();
-            Gson gson= new Gson();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // success
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        con.getInputStream()));
-                if(sensorType.equals("voltage")){
-                     voltObj voltData = gson.fromJson(in, voltObj.class);
-                     return voltData;
-
-                }else if(sensorType.equals("temperature")){
-                    tempObj tempData= gson.fromJson(in, tempObj.class);
-                    return tempData;
-                }else{
-                    return null;
-                }
-
-            }
-        } catch (Exception e) {
-            return e.toString();
-        }
-        return null;
     }
 
 }
