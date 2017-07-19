@@ -1,0 +1,167 @@
+<!-- Load the Polymer.Element base class -->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/chart-elements/chart-elements.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="my-new-view">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+  <style is="custom-style" include="iron-flex iron-positioning iron-flex-alignment">
+  .container {
+    @apply(--layout-horizontal);
+    position: relative;
+    height: 100%;
+  }
+  .chartcontainer {
+    position: relative;
+    height: 100%;
+  }
+  .flexchild {
+    @apply(--layout-flex);
+  }
+  #chart1{
+    height: 33%;
+    width: 100%;
+  }
+  #chart2{
+    height: 33%;
+    width: 100%;
+  }
+  #chart3{
+    height: 33%;
+    width: 100%;
+  }
+  </style>
+  <div id="container" class="layout vertical center-justified card-container">
+    <div >
+    <label class="chartcontainer" for = "chart1">Turbine 1<br />
+      <chart-line title="[[title]]" options=[[options1]] id="chart1" data="[[data1]]"></chart-line>
+    </label>
+  </div>
+  <div class="chartcontainer">
+  <label class="chartcontainer" for = "chart2">Turbine 2<br />
+      <chart-line  id="chart2" data="[[data2]]"></chart-line>
+    </label>
+  </div>
+  <div class="chartcontainer">
+    <label class="chartcontainer" for = "chart3">Turbine 3<br />
+      <chart-line id="chart3" data="[[data3]]"></chart-line>
+    </label>
+  </div>
+  </div>
+  </template>
+  <script>
+    // Your new element extends the Polymer.Element base class
+    class MyNewView extends Polymer.Element {
+      static get is() { return 'my-new-view'; }
+      constructor(){
+        super();
+        var start = 0;
+        var end = 23;
+
+        var arr = [];
+
+        while(start <= end){
+          arr.push(start++);
+        }
+        this.title = {
+            display: true,
+            text: 'Custom Chart Title'
+        }
+
+        this.options1={
+          maintainAspectRatio: false,
+        }
+
+        this.data1 = {
+
+          labels: arr,
+          datasets: [
+            {
+              label: "Temperature",
+              backgroundColor: "rgba(242, 38, 19,0.3)",
+              borderColor: "rgba(220,220,220,1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(220,220,220,1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              data: [65, 59, 80, 81, 56, 55, 40, 55,23,66,23,92,47,12,64,75,34]
+            },
+            {
+              label: "Voltage",
+              backgroundColor: "rgba(151,187,205,0.5)",
+              borderColor: "rgba(151,187,205,1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(151,187,205,1)",
+              pointBorderColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHoverBorderColor: "rgba(151,187,205,1)",
+              data: [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86, 27, 90,28, 48, 40, 19, 86, 27, 90]
+            }
+          ]
+        };
+        this.data2 = {
+
+          labels: arr,
+          datasets: [
+            {
+              label: "Temperature",
+              backgroundColor: "rgba(242, 38, 19,0.3)",
+              borderColor: "rgba(220,220,220,1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(220,220,220,1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              data: [65, 59, 80, 81, 56, 55, 40, 55,23,66,23,92,47,12,64,75,34],
+            },
+            {
+              label: "Voltage",
+              backgroundColor: "rgba(151,187,205,0.5)",
+              borderColor: "rgba(151,187,205,1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(151,187,205,1)",
+              pointBorderColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHoverBorderColor: "rgba(151,187,205,1)",
+              data: [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86, 27, 90,28, 48, 40, 19, 86, 27, 90]
+            }
+          ]
+        };
+        this.data3 = {
+
+          labels: arr,
+          datasets: [
+            {
+              label: "Temperature",
+              backgroundColor: "rgba(242, 38, 19,0.3)",
+              borderColor: "rgba(220,220,220,1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(220,220,220,1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              data: [65, 59, 80, 81, 56, 55, 40, 55,23,66,23,92,47,12,64,75,34]
+            },
+            {
+              label: "Voltage",
+              backgroundColor: "rgba(151,187,205,0.5)",
+              borderColor: "rgba(151,187,205,1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(151,187,205,1)",
+              pointBorderColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHoverBorderColor: "rgba(151,187,205,1)",
+              data: [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86, 27, 90,28, 48, 40, 19, 86, 27, 90]
+            }
+          ]
+        };
+      }
+    }
+
+    //Now, register your new custom element so the browser can use it
+    customElements.define(MyNewView.is, MyNewView);
+  </script>
+</dom-module>

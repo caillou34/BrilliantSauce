@@ -1,0 +1,30 @@
+language: node_js
+node_js: stable
+dist: trusty
+sudo: required
+env:
+  global:
+  - secure: gZ5vpMlc9fuKSZeMmT6xf4+FIVWxET6f6Lkp6l5Qo9vL2X/KC/bMJF1v2w5xXFLFTdm/hPUDkeQRDUBBJhGcsXhJeWIvAXdPkObV9ZPRwpDnnN1qU5lOqVIy6gFjDm2Wm6UNXcRnyP1TrGpMwbG13EUtD0rF8LZqBm3B833sKS4=
+  - secure: DObDewETPYiIsASeC3UETPbQ6YBniRZdNV2eTM1xULvuFNDxXJD09KKyWOiMduublEIJRXLjBIXmD8cbVsgrbRUYA4bxcXffDeuc6q6HaQGU9HvIbLz6o3/oxi4fX2G9GwrZtijW2p2Rgw2l9koR3ovjcM97CSTWFUMh5rtXag8=
+addons:
+  firefox: latest
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+before_script:
+- npm run bower:install
+- npm run polylint
+- npm run eslint
+script:
+- xvfb-run npm run test
+deploy:
+  provider: npm
+  email: misha@ginkgobioworks.com
+  api_key:
+    secure: QLiJlWCT5130Aiv9SrCFAdu9BRCsiy62CUA+0tfTQ8dU6I7TWlh4G29j/Q4ep/miS5Qy7sKOVD+701eEAJcZyeL64m/VUkon/a1Jfgv+uFsQk53O1tsjhiTpIiC5cl4ZQw6gugi2q1qpd7g/HGrdXAQ6cBlh0g9b91G58fh68AJWwuCOJf4w8MWZnWsakx4RjkMSr70sGhdLsOFlu1sbPa7beZTWU4BAB98I9wTQaGHxfVkw9/7DehhGySWsYiILOt2R+2K2Ld/7BayzpnnjK14rfWyAEVdQVp+PR12R0FhZycT+5PZ8bYAidbjXZQXDtTJ6bEIQXBQlW5lfFKVYkPmkpGnfgtyvoO+uW1mrSWXPzmqCKfVdlNLqduYi5yhoAdhj2UGlM9FQNE3w9m9R8yEwuEiRQ4pr7CcOdg+lLpnFHeS9FYIF3S76+MTh6x9QDQBx4LDKSwncrVRtjW8NeWz/aKP1UuPSr7J30eQCGDsSQAPkrF/0o1cdzzXRMnnfM0UQnM2E+/ujeglTgYugnF6Q634hQEdQQhPZNgKukFV7UWoUTUIGA1Pk+C71fskF1YWCgdMWMG9jLJ7AfIjS4R6ZQZy0EfnPQC1b9b0bZVuyu7d8vjdw7F4KLPxJD3GiVt9rId6R9ysTHnepqtcbcTmQquYuwT1dynWB9M6FwJ4=
+  on:
+    tags: true
+  after_deploy:
+  - ./deploy/gp-build ginkgobioworks plotly-plot "Ginkgo Developer" devs@ginkgobioworks.com
